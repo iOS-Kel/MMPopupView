@@ -95,7 +95,13 @@
 
 
 static const void *mm_dimReferenceCountKey            = &mm_dimReferenceCountKey;
+/**
+ static char *mm_dimBackgroundViewKey = "mm_dimBackgroundViewKey"; 和 static char *mm_dimBackgroundViewKey = &mm_dimBackgroundViewKey; 在功能上是相似的，都可以作为关联对象的键。然而，它们之间存在一些细微的区别。
 
+ 字符串字面量作为键：static char *mm_dimBackgroundViewKey = "mm_dimBackgroundViewKey"; 使用字符串字面量作为键，它在内存中是常量，并且在整个程序运行期间都是相同的。这意味着，如果你在不同的地方使用相同的字符串字面量作为键，可能会导致冲突，因为它们都指向相同的内存地址。
+
+ 变量地址作为键：static char *mm_dimBackgroundViewKey = &mm_dimBackgroundViewKey; 使用变量地址作为键，确保键的唯一性。每个变量在内存中都有自己的地址，因此使用变量地址作为键可以避免潜在的冲突。
+ */
 static const void *mm_dimBackgroundViewKey            = &mm_dimBackgroundViewKey;
 static const void *mm_dimAnimationDurationKey         = &mm_dimAnimationDurationKey;
 static const void *mm_dimBackgroundAnimatingKey       = &mm_dimBackgroundAnimatingKey;

@@ -172,9 +172,9 @@ static NSString * const MMPopupViewHideAllNotification = @"MMPopupViewHideAllNot
         {
             [self.attachedView.mm_dimBackgroundView addSubview:self];
             [self mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.center.equalTo(self.attachedView).centerOffset(CGPointMake(0, self.withKeyboard?-216/2:0));
+                make.center.equalTo(self.superview).centerOffset(CGPointMake(0, self.withKeyboard?-216/2:0));
             }];
-            [self layoutIfNeeded];
+            [self.superview layoutIfNeeded];
         }
         
         self.layer.transform = CATransform3DMakeScale(1.2f, 1.2f, 1.0f);
@@ -183,17 +183,17 @@ static NSString * const MMPopupViewHideAllNotification = @"MMPopupViewHideAllNot
         [UIView animateWithDuration:self.animationDuration
                               delay:0.0 options:UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
-                             
-                             self.layer.transform = CATransform3DIdentity;
-                             self.alpha = 1.0f;
-                             
-                         } completion:^(BOOL finished) {
-                             
-                             if ( self.showCompletionBlock )
-                             {
-                                 self.showCompletionBlock(self, finished);
-                             }
-                         }];
+            
+            self.layer.transform = CATransform3DIdentity;
+            self.alpha = 1.0f;
+            
+        } completion:^(BOOL finished) {
+            
+            if ( self.showCompletionBlock )
+            {
+                self.showCompletionBlock(self, finished);
+            }
+        }];
     };
     
     return block;
@@ -209,23 +209,23 @@ static NSString * const MMPopupViewHideAllNotification = @"MMPopupViewHideAllNot
                               delay:0
                             options: UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
-                             
-                             self.alpha = 0.0f;
-                             
-                         }
+            
+            self.alpha = 0.0f;
+            
+        }
                          completion:^(BOOL finished) {
-                             
-                             if ( finished )
-                             {
-                                 [self removeFromSuperview];
-                             }
-                             
-                             if ( self.hideCompletionBlock )
-                             {
-                                 self.hideCompletionBlock(self, finished);
-                             }
-                             
-                         }];
+            
+            if ( finished )
+            {
+                [self removeFromSuperview];
+            }
+            
+            if ( self.hideCompletionBlock )
+            {
+                self.hideCompletionBlock(self, finished);
+            }
+            
+        }];
     };
     
     return block;
@@ -245,29 +245,29 @@ static NSString * const MMPopupViewHideAllNotification = @"MMPopupViewHideAllNot
                 make.centerX.equalTo(self.attachedView);
                 make.bottom.equalTo(self.attachedView.mas_bottom).offset(self.attachedView.frame.size.height);
             }];
-            [self layoutIfNeeded];
+            [self.superview layoutIfNeeded];
         }
         
         [UIView animateWithDuration:self.animationDuration
                               delay:0
                             options:UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
-                             
-                             [self mas_updateConstraints:^(MASConstraintMaker *make) {
-                                 make.bottom.equalTo(self.attachedView.mas_bottom).offset(0);
-                             }];
-                             
-                             [self.superview layoutIfNeeded];
-                             
-                         }
+            
+            [self mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(self.attachedView.mas_bottom).offset(0);
+            }];
+            
+            [self.superview layoutIfNeeded];
+            
+        }
                          completion:^(BOOL finished) {
-                             
-                             if ( self.showCompletionBlock )
-                             {
-                                 self.showCompletionBlock(self, finished);
-                             }
-                             
-                         }];
+            
+            if ( self.showCompletionBlock )
+            {
+                self.showCompletionBlock(self, finished);
+            }
+            
+        }];
     };
     
     return block;
@@ -283,27 +283,27 @@ static NSString * const MMPopupViewHideAllNotification = @"MMPopupViewHideAllNot
                               delay:0
                             options:UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
-                             
-                             [self mas_updateConstraints:^(MASConstraintMaker *make) {
-                                 make.bottom.equalTo(self.attachedView.mas_bottom).offset(self.attachedView.frame.size.height);
-                             }];
-                             
-                             [self.superview layoutIfNeeded];
-                             
-                         }
+            
+            [self mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(self.attachedView.mas_bottom).offset(self.attachedView.frame.size.height);
+            }];
+            
+            [self.superview layoutIfNeeded];
+            
+        }
                          completion:^(BOOL finished) {
-                             
-                             if ( finished )
-                             {
-                                 [self removeFromSuperview];
-                             }
-                             
-                             if ( self.hideCompletionBlock )
-                             {
-                                 self.hideCompletionBlock(self, finished);
-                             }
-                             
-                         }];
+            
+            if ( finished )
+            {
+                [self removeFromSuperview];
+            }
+            
+            if ( self.hideCompletionBlock )
+            {
+                self.hideCompletionBlock(self, finished);
+            }
+            
+        }];
     };
     
     return block;
@@ -319,35 +319,32 @@ static NSString * const MMPopupViewHideAllNotification = @"MMPopupViewHideAllNot
         {
             [self.attachedView.mm_dimBackgroundView addSubview:self];
             [self mas_updateConstraints:^(MASConstraintMaker *make) {
-//                make.center.equalTo(self.attachedView).centerOffset(CGPointMake(0, -self.attachedView.bounds.size.height));
-                // f.k fix
-                make.center.equalTo(self.attachedView).centerOffset(CGPointMake(0, 0));
-                make.width.height.equalTo(self.attachedView);
+                make.center.equalTo(self.attachedView).centerOffset(CGPointMake(0, -self.attachedView.bounds.size.height));
             }];
-            [self layoutIfNeeded];
+            [self.superview layoutIfNeeded];
         }
         
-//        [UIView animateWithDuration:self.animationDuration
-//                              delay:0
-//             usingSpringWithDamping:0.8
-//              initialSpringVelocity:1.5
-//                            options:UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
-//                         animations:^{
-//
-//                             [self mas_updateConstraints:^(MASConstraintMaker *make) {
-//                                 make.center.equalTo(self.attachedView).centerOffset(CGPointMake(0, self.withKeyboard?-216/2:0));
-//                             }];
-//
-//                             [self.superview layoutIfNeeded];
-//
-//                         } completion:^(BOOL finished) {
-//
-//                             if ( self.showCompletionBlock )
-//                             {
-//                                 self.showCompletionBlock(self, finished);
-//                             }
-//
-//                         }];
+        [UIView animateWithDuration:self.animationDuration
+                              delay:0
+             usingSpringWithDamping:0.8
+              initialSpringVelocity:1.5
+                            options:UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+            
+            [self mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.center.equalTo(self.attachedView).centerOffset(CGPointMake(0, self.withKeyboard?-216/2:0));
+            }];
+            
+            [self.superview layoutIfNeeded];
+            
+        } completion:^(BOOL finished) {
+            
+            if ( self.showCompletionBlock )
+            {
+                self.showCompletionBlock(self, finished);
+            }
+            
+        }];
     };
     
     return block;
@@ -359,29 +356,29 @@ static NSString * const MMPopupViewHideAllNotification = @"MMPopupViewHideAllNot
     MMPopupBlock block = ^(MMPopupView *popupView){
         MMStrongify(self);
         
-//        [UIView animateWithDuration:0.3
-//                              delay:0
-//                            options:UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionBeginFromCurrentState
-//                         animations:^{
-//
-//                             [self mas_updateConstraints:^(MASConstraintMaker *make) {
-//                                 make.center.equalTo(self.attachedView).centerOffset(CGPointMake(0, self.attachedView.bounds.size.height));
-//                             }];
-//
-//                             [self.superview layoutIfNeeded];
-//
-//                         } completion:^(BOOL finished) {
-//
-//                             if ( finished )
-//                             {
-//                                 [self removeFromSuperview];
-//                             }
-//
-//                             if ( self.hideCompletionBlock )
-//                             {
-//                                 self.hideCompletionBlock(self, finished);
-//                             }
-//                         }];
+        [UIView animateWithDuration:0.3
+                              delay:0
+                            options:UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+            
+            [self mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.center.equalTo(self.attachedView).centerOffset(CGPointMake(0, self.attachedView.bounds.size.height));
+            }];
+            
+            [self.superview layoutIfNeeded];
+            
+        } completion:^(BOOL finished) {
+            
+            if ( finished )
+            {
+                [self removeFromSuperview];
+            }
+            
+            if ( self.hideCompletionBlock )
+            {
+                self.hideCompletionBlock(self, finished);
+            }
+        }];
     };
     
     return block;
